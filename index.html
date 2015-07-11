@@ -4,17 +4,37 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>isthisachat</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        #chat-wrap {
+            height: 100px;
+            overflow-y: scroll;
+        }
+        #chat li {
+
+        }
+    </style>
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    <form id="chat-input">
-        <input type="text" id="message" />
-        <button class="btn btn-primary btn-large" id="connect-me">Send</button>
-    </form>
-    <ul id="chat">
-    </ul>
+    <div class="container">
+        <h1>isthisachat</h1>
+        <div class="well" id="chat-wrap">
+            <ul id="chat" class="list-unstyled"></ul>
+        </div>
+        <div class="row">
+        <div class="col-lg-4">
+        <form id="chat-input">
+            <div class="input-group">
+                <input type="text" class="form-control" id="message" autofocus />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary">Send!</button>
+                </span>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
         $(function () {
@@ -26,7 +46,7 @@
             });
             socket.onmessage = function (event) {
                 console.log("<- " + event.data);
-                $("<li/>").text(event.data).appendTo(chat);
+                $("<li/>").text(event.data).appendTo(chat)[0].scrollIntoView(false);
             };
         });
     </script>
