@@ -35,19 +35,22 @@
         </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
-        $(function () {
+        document.addEventListener('DOMContentLoaded', function () {
             var socket = new WebSocket("ws://127.0.0.1:6639");
-            var chat = $("#chat");
-            $('#chat-input').on('submit', function () {
-                socket.send($("#message").val());
-                $("#message").val("").focus();
-                return false;
+            var chat = document.getElementById('chat');
+            var chatInput = document.getElementById('chat-input');
+            var message = document.getElementById('message');
+            chatInput.addEventListener('submit', function (e) {
+                socket.send(message.value);
+                message.value = '';
+                e.preventDefault();
             });
             socket.onmessage = function (event) {
-                console.log("<- " + event.data);
-                $("<li/>").text(event.data).appendTo(chat)[0].scrollIntoView(false);
+                var li = document.createElement('li');
+                li.textContent = event.data;
+                chat.appendChild(li);
+                li.scrollIntoView(false);
             };
         });
     </script>
