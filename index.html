@@ -42,6 +42,7 @@
             var chat = $("#chat");
             $('#chat-input').on('submit', function () {
                 socket.send($("#message").val());
+                $("#message").val("").focus();
                 return false;
             });
             socket.onmessage = function (event) {
