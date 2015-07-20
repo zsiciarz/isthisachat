@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
         message.value = '';
         e.preventDefault();
     });
-    socket.onmessage = event => {
+    socket.addEventListener('message', e => {
         let li = document.createElement('li');
-        li.textContent = event.data;
+        li.textContent = e.data;
         chat.appendChild(li);
         li.scrollIntoView(false);
-    };
+    });
 });
 
