@@ -9,7 +9,7 @@ serve: install build
 build: $(LIB)
 build/%.js: src/%.js
 	mkdir -p $(@D)
-	./node_modules/.bin/babel $< -o $@
+	./node_modules/.bin/babel --stage 0 $< -o $@
 
 install:
 	npm install
