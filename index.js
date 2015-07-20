@@ -14,6 +14,7 @@ wss.on('connection', ws => {
   let username = faker.internet.userName();
   wss.broadcast(`${username} joined!`);
   ws.on('message', message => wss.broadcast(`${username}: ${message}`));
+  ws.on('close', message => wss.broadcast(`${username} left`));
 });
 
 process.on('SIGINT', () => {
