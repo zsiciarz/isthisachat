@@ -19,3 +19,10 @@ wss.on('connection', function (ws) {
     wss.broadcast(username + ': ' + message);
   });
 });
+
+process.on('SIGINT', function() {
+  wss.broadcast('Server going down NOW!');
+  setTimeout(function () {
+    process.exit();
+  }, 100);
+});
