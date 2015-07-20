@@ -4,7 +4,7 @@ SRC = $(wildcard src/*.js)
 LIB = $(SRC:src/%.js=build/%.js)
 
 serve: install build
-	node index.js
+	./node_modules/.bin/babel-node index.js
 
 build: $(LIB)
 build/%.js: src/%.js

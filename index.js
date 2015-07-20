@@ -1,28 +1,22 @@
-var connect = require('connect');
-var faker = require('faker');
-var serveStatic = require('serve-static');
-var WebSocketServer = require('ws').Server;
+let connect = require('connect');
+let faker = require('faker');
+let serveStatic = require('serve-static');
+let WebSocketServer = require('ws').Server;
 
 connect().use(serveStatic(__dirname)).listen(8080);
 
-var wss = new WebSocketServer({port: 6639});
-wss.broadcast = function (data) {
-  wss.clients.forEach(function (client) {
-    client.send(data);
-  });
+let wss = new WebSocketServer({port: 6639});
+wss.broadcast = data => {
+  wss.clients.forEach(client => client.send(data));
 };
 
-wss.on('connection', function (ws) {
-  var username = faker.internet.userName();
-  wss.broadcast(username + ' joined!');
-  ws.on('message', function (message) {
-    wss.broadcast(username + ': ' + message);
-  });
+wss.on('connection', ws => {
+  let username = faker.internet.userName();
+  wss.broadcast(`${username} joined!`);
+  ws.on('message', message => wss.broadcast(`${username}: ${message}`));
 });
 
-process.on('SIGINT', function() {
+process.on('SIGINT', () => {
   wss.broadcast('Server going down NOW!');
-  setTimeout(function () {
-    process.exit();
-  }, 100);
+  setTimeout(() => process.exit(), 100);
 });
