@@ -47,12 +47,11 @@ class ChatRoom extends React.Component {
     }
 
     render() {
-        let messageNodes = this.state.messages.map(message => {
-            return <ChatMessage message={message} />;
-        });
         return <div>
             <div className="well" id="chat-wrap">
-            <ul id="chat" className="list-unstyled">{messageNodes}</ul>
+                <ul className="list-unstyled">
+                    {this.state.messages.map(msg => <ChatMessage message={msg} />)}
+                </ul>
             </div>
             <ChatForm onSend={this.handleSend} />
             </div>;
