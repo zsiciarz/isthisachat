@@ -1,4 +1,5 @@
 var connect = require('connect');
+var faker = require('faker');
 var serveStatic = require('serve-static');
 var WebSocketServer = require('ws').Server;
 
@@ -12,8 +13,9 @@ wss.broadcast = function (data) {
 };
 
 wss.on('connection', function (ws) {
-  wss.broadcast('Somebody joined!');
+  var username = faker.internet.userName();
+  wss.broadcast(username + ' joined!');
   ws.on('message', function (message) {
-    wss.broadcast(message);
+    wss.broadcast(username + ': ' + message);
   });
 });
