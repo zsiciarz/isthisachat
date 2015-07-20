@@ -18,5 +18,5 @@ wss.on('connection', ws => {
 
 process.on('SIGINT', () => {
   wss.broadcast('Server going down NOW!');
-  setTimeout(() => process.exit(), 100);
+  setTimeout(process.exit, 100);
 });
