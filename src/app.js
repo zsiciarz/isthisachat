@@ -1,4 +1,8 @@
 class ChatMessage extends React.Component {
+    static propTypes = {
+        message: React.PropTypes.string.isRequired
+    }
+
     componentDidUpdate() {
         React.findDOMNode(this.refs.message).scrollIntoView(true);
     }
@@ -9,6 +13,10 @@ class ChatMessage extends React.Component {
 }
 
 class ChatForm extends React.Component {
+    static propTypes = {
+        onSend: React.PropTypes.func.isRequired
+    }
+
     handleSubmit = (e) => {
         let input = React.findDOMNode(this.refs.message);
         this.props.onSend(input.value);
@@ -33,6 +41,10 @@ class ChatForm extends React.Component {
 }
 
 class ChatRoom extends React.Component {
+    static propTypes = {
+        websocketAddress: React.PropTypes.string.isRequired
+    }
+
     constructor(props) {
         super(props);
         this.socket = new WebSocket(this.props.websocketAddress);
