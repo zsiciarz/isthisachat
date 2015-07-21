@@ -38,7 +38,7 @@ class ChatRoom extends React.Component {
 
     handleIncomingMessage = (e) => {
         let messages = this.state.messages;
-        messages.push(e.data);
+        messages.push(JSON.parse(e.data));
         this.setState({messages: messages});
     }
 
@@ -50,7 +50,7 @@ class ChatRoom extends React.Component {
         return <div>
             <div className="well" id="chat-wrap">
                 <ul className="list-unstyled">
-                    {this.state.messages.map(msg => <ChatMessage message={msg} />)}
+                    {this.state.messages.map(msg => <ChatMessage key={msg.id} message={msg.message} />)}
                 </ul>
             </div>
             <ChatForm onSend={this.handleSend} />
