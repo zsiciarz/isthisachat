@@ -17,7 +17,7 @@ class ChatForm extends React.Component {
         <div className="col-lg-4">
         <form onSubmit={this.handleSubmit}>
             <div className="input-group">
-                <input type="text" className="form-control" ref="message" autofocus />
+                <input type="text" className="form-control" ref="message" autoFocus />
                 <span className="input-group-btn">
                     <button className="btn btn-primary">Send!</button>
                 </span>
