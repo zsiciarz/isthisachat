@@ -47,14 +47,14 @@ class ChatRoom extends React.Component {
     }
 
     render() {
-        return <div>
-            <div className="well" id="chat-wrap">
-                <ul className="list-unstyled">
+        return (
+            <div>
+                <ul className="well list-unstyled">
                     {this.state.messages.map(msg => <ChatMessage key={msg.id} message={msg.message} />)}
                 </ul>
+                <ChatForm onSend={this.handleSend} />
             </div>
-            <ChatForm onSend={this.handleSend} />
-            </div>;
+        );
     }
 }
 
