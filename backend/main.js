@@ -8,19 +8,20 @@ let WebSocketServer = require('ws').Server;
 connect().use(serveStatic(path.join(__dirname, '../'))).listen(8080);
 
 let wss = new WebSocketServer({port: 6639});
-wss.broadcast = message => {
+wss.broadcast = (nick, message) => {
   let payload = JSON.stringify({
     id: uuid.v4(),
+    nick: nick,
     message: message
   });
   wss.clients.forEach(client => client.send(payload));
 };
 
 wss.on('connection', ws => {
-  let username = faker.internet.userName();
-  wss.broadcast(`${username} joined!`);
-  ws.on('message', message => wss.broadcast(`${username}: ${message}`));
-  ws.on('close', message => wss.broadcast(`${username} left`));
+  let nick = faker.internet.userName();
+  wss.broadcast(nick, 'joined!');
+  ws.on('message', message => wss.broadcast(nick, message));
+  ws.on('close', message => wss.broadcast(nick, ' left'));
 });
 
 process.on('SIGINT', () => {

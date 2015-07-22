@@ -11,7 +11,12 @@ class ChatMessage extends React.Component {
     }
 
     render() {
-        return <li>{this.props.message}</li>;
+        return (
+            <li>
+                <span className="nick">{this.props.message.nick}: </span>
+                {this.props.message.message}
+            </li>
+        );
     }
 }
 
@@ -79,7 +84,7 @@ class ChatRoom extends React.Component {
             <div className="row">
                 <div className="col-lg-9">
                 <ul className="well list-unstyled">
-                    {this.state.messages.map(msg => <ChatMessage key={msg.id} message={msg.message} />)}
+                    {this.state.messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
                 </ul>
                 </div>
                 <div className="col-lg-3">
