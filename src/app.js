@@ -4,11 +4,11 @@ class ChatMessage extends React.Component {
     }
 
     componentDidUpdate() {
-        React.findDOMNode(this.refs.message).scrollIntoView(true);
+        React.findDOMNode(this).scrollIntoView(true);
     }
 
     render() {
-        return <li ref="message">{this.props.message}</li>;
+        return <li>{this.props.message}</li>;
     }
 }
 
