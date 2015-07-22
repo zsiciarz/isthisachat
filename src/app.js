@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import {List} from 'immutable';
+import {List, OrderedSet} from 'immutable';
 
 class ChatMessage extends React.Component {
     static propTypes = {
@@ -24,6 +24,7 @@ class ChatUserList extends React.Component {
     render () {
         return (
             <ul>
+                {this.props.nicks.map(nick => <li>{nick}</li>)}
             </ul>
         );
     }
@@ -66,12 +67,15 @@ class ChatRoom extends React.Component {
         super(props);
         this.socket = new WebSocket(this.props.websocketAddress);
         this.socket.addEventListener('message', this.handleIncomingMessage);
-        this.state = {messages: List()};
+        this.state = {messages: List(), nicks: OrderedSet()};
     }
 
     handleIncomingMessage = (e) => {
         let message = JSON.parse(e.data);
-        this.setState({messages: this.state.messages.push(message)});
+        this.setState({
+            messages: this.state.messages.push(message),
+            nicks: this.state.nicks.add(message.nick)
+        });
     }
 
     handleSend = (message) => {
@@ -88,7 +92,7 @@ class ChatRoom extends React.Component {
                 </ul>
                 </div>
                 <div className="col-lg-3">
-                    <ChatUserList />
+                    <ChatUserList nicks={this.state.nicks} />
                 </div>
             </div>
             <ChatForm onSend={this.handleSend} />
