@@ -15,6 +15,15 @@ class ChatMessage extends React.Component {
     }
 }
 
+class ChatUserList extends React.Component {
+    render () {
+        return (
+            <ul>
+            </ul>
+        );
+    }
+}
+
 class ChatForm extends React.Component {
     static propTypes = {
         onSend: React.PropTypes.func.isRequired
@@ -67,10 +76,17 @@ class ChatRoom extends React.Component {
     render() {
         return (
             <div>
+            <div className="row">
+                <div className="col-lg-9">
                 <ul className="well list-unstyled">
                     {this.state.messages.map(msg => <ChatMessage key={msg.id} message={msg.message} />)}
                 </ul>
-                <ChatForm onSend={this.handleSend} />
+                </div>
+                <div className="col-lg-3">
+                    <ChatUserList />
+                </div>
+            </div>
+            <ChatForm onSend={this.handleSend} />
             </div>
         );
     }
