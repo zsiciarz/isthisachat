@@ -3,7 +3,7 @@ import {List} from 'immutable';
 
 class ChatMessage extends React.Component {
     static propTypes = {
-        message: React.PropTypes.string.isRequired
+        message: React.PropTypes.object.isRequired
     }
 
     componentDidUpdate() {
