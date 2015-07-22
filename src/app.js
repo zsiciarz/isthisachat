@@ -1,3 +1,5 @@
+import React from 'react/addons';
+
 class ChatMessage extends React.Component {
     static propTypes = {
         message: React.PropTypes.string.isRequired
