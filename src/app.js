@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import {List} from 'immutable';
 
 class ChatMessage extends React.Component {
     static propTypes = {
@@ -51,13 +52,12 @@ class ChatRoom extends React.Component {
         super(props);
         this.socket = new WebSocket(this.props.websocketAddress);
         this.socket.addEventListener('message', this.handleIncomingMessage);
-        this.state = {messages: []};
+        this.state = {messages: List()};
     }
 
     handleIncomingMessage = (e) => {
-        let messages = this.state.messages;
-        messages.push(JSON.parse(e.data));
-        this.setState({messages: messages});
+        let message = JSON.parse(e.data);
+        this.setState({messages: this.state.messages.push(message)});
     }
 
     handleSend = (message) => {

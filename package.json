@@ -12,6 +12,7 @@
   "dependencies": {
     "connect": "^3.4.0",
     "faker": "^3.0.0",
+    "immutable": "^3.7.4",
     "kexec": "^1.2.0",
     "node-uuid": "^1.4.3",
     "react": "^0.13.3",
