@@ -10,11 +10,20 @@ export class ChatMessage extends React.Component {
     }
 
     render() {
-        return (
-            <li>
-                <span className="nick">{this.props.message.nick}: </span>
-                {this.props.message.message}
-            </li>
-        );
+        if (this.props.message.messageType === 'user') {
+            return (
+                <li>
+                    <span className="nick">{this.props.message.nick}: </span>
+                    {this.props.message.message}
+                </li>
+            );
+        } else {
+            return (
+                <li className="server">
+                    <span className="nick">{this.props.message.nick} </span>
+                    {this.props.message.message}
+                </li>
+            );
+        }
     }
 }
