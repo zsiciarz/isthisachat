@@ -13,7 +13,7 @@ serve: install
 		--exec ./node_modules/.bin/babel-node \
 		--watch backend \
 		--delay 100ms \
-		-- backend/main.js
+		-- --stage 0 backend/main.js
 
 watch: install
 	./node_modules/.bin/webpack --colors --progress --watch

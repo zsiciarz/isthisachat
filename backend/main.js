@@ -7,24 +7,36 @@ import {Server as WebSocketServer} from 'ws';
 
 connect().use(serveStatic(path.join(__dirname, '../'))).listen(8080);
 
-let wss = new WebSocketServer({port: 6639});
-wss.broadcast = (nick, message) => {
-  const payload = JSON.stringify({
-    id: uuid.v4(),
-    nick: nick,
-    message: message
-  });
-  wss.clients.forEach(client => client.send(payload));
-};
+class ChatServer {
+  constructor(port) {
+    this.wss = new WebSocketServer({port: port});
+    this.wss.on('connection', this.handleConnection);
+  }
 
-wss.on('connection', ws => {
-  const nick = faker.internet.userName();
-  wss.broadcast(nick, 'joined!');
-  ws.on('message', message => wss.broadcast(nick, message));
-  ws.on('close', message => wss.broadcast(nick, ' left'));
-});
+  broadcast = (nick, message) => {
+    const payload = JSON.stringify({
+      id: uuid.v4(),
+      nick: nick,
+      message: message
+    });
+    this.wss.clients.forEach(client => client.send(payload));
+  };
+
+  handleConnection = (ws) => {
+    const nick = faker.internet.userName();
+    this.broadcast(nick, 'joined!');
+    ws.on('message', message => this.broadcast(nick, message));
+    ws.on('close', message => this.broadcast(nick, ' left'));
+  }
+
+  close() {
+    this.wss.broadcast('Server going down NOW!');
+  }
+}
+
+let server = new ChatServer(6639);
 
 process.on('SIGINT', () => {
-  wss.broadcast('Server going down NOW!');
+  server.close();
   setTimeout(process.exit, 100);
 });
