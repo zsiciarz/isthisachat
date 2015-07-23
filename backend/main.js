@@ -1,9 +1,9 @@
-let connect = require('connect');
-let faker = require('faker');
-let path = require('path');
-let serveStatic = require('serve-static');
-let uuid = require('node-uuid');
-let WebSocketServer = require('ws').Server;
+import connect from 'connect';
+import faker from 'faker';
+import path from 'path';
+import serveStatic from 'serve-static';
+import uuid from 'node-uuid';
+import {Server as WebSocketServer} from 'ws';
 
 connect().use(serveStatic(path.join(__dirname, '../'))).listen(8080);
 
