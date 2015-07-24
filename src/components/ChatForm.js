@@ -35,7 +35,7 @@ export class ChatForm extends React.Component {
                     value={this.state.text}
                     autoFocus />
                 <span className="input-group-btn">
-                    <button className="btn btn-primary">Send!</button>
+                    <button className="btn btn-primary" disabled={this.state.text.length === 0}>Send!</button>
                 </span>
             </div>
         </form>
