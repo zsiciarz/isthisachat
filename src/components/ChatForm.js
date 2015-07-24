@@ -5,11 +5,21 @@ export class ChatForm extends React.Component {
         onSend: React.PropTypes.func.isRequired
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {text: ''};
+    }
+
     handleSubmit = (e) => {
+        this.props.onSend(this.state.text);
+        this.setState({text: ''});
         let input = React.findDOMNode(this.refs.message);
-        this.props.onSend(input.value);
-        input.value = '';
+        input.focus();
         e.preventDefault();
+    }
+
+    handleChange = (e) => {
+        this.setState({text: e.target.value});
     }
 
     render() {
@@ -17,7 +27,13 @@ export class ChatForm extends React.Component {
         <div className="col-lg-4">
         <form onSubmit={this.handleSubmit}>
             <div className="input-group">
-                <input type="text" className="form-control" ref="message" autoFocus />
+                <input
+                    type="text"
+                    className="form-control"
+                    ref="message"
+                    onChange={this.handleChange}
+                    value={this.state.text}
+                    autoFocus />
                 <span className="input-group-btn">
                     <button className="btn btn-primary">Send!</button>
                 </span>
