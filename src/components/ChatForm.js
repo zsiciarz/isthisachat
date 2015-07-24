@@ -5,10 +5,7 @@ export class ChatForm extends React.Component {
         onSend: React.PropTypes.func.isRequired
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {text: ''};
-    }
+    state = {text: ''}
 
     handleSubmit = (e) => {
         this.props.onSend(this.state.text);

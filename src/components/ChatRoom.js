@@ -9,11 +9,12 @@ export class ChatRoom extends React.Component {
         websocketAddress: React.PropTypes.string.isRequired
     }
 
+    state = {messages: List(), nicks: OrderedSet()}
+
     constructor(props) {
         super(props);
         this.socket = new WebSocket(this.props.websocketAddress);
         this.socket.addEventListener('message', this.handleIncomingMessage);
-        this.state = {messages: List(), nicks: OrderedSet()};
     }
 
     handleIncomingMessage = (e) => {
