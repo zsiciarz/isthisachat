@@ -10,20 +10,25 @@ export class ChatMessage extends React.Component {
     }
 
     render() {
-        if (this.props.message.messageType === 'user') {
-            return (
-                <li>
-                    <span className="nick">{this.props.message.nick}: </span>
-                    {this.props.message.message}
-                </li>
-            );
-        } else {
-            return (
-                <li className="server">
-                    <span className="nick">{this.props.message.nick} </span>
-                    {this.props.message.message}
-                </li>
-            );
+        const event = this.props.message.event;
+        const isServerMessage = this.props.message.event !== 'message';
+        let message = this.props.message.message;
+        switch (event) {
+            case 'join':
+                message = 'joined';
+                break;
+            case 'leave':
+                message = 'left';
+                break;
         }
+        return (
+            <li className={isServerMessage ? "server" : ""}>
+                <span className="nick">
+                    {this.props.message.nick}
+                    {isServerMessage ? " " : ": "}
+                </span>
+                {message}
+            </li>
+        );
     }
 }

@@ -13,31 +13,21 @@ class ChatServer {
     this.wss.on('connection', this.handleConnection);
   }
 
-  sendUserMessage = (nick, message) => {
+  sendMessage = (nick, event, data) => {
     const payload = JSON.stringify({
       id: uuid.v4(),
       nick: nick,
-      messageType: 'user',
-      message: message
-    });
-    this.wss.clients.forEach(client => client.send(payload));
-  };
-
-  sendServerMessage = (nick, message) => {
-    const payload = JSON.stringify({
-      id: uuid.v4(),
-      nick: nick,
-      messageType: 'server',
-      message: message
+      event: event,
+      message: data
     });
     this.wss.clients.forEach(client => client.send(payload));
   };
 
   handleConnection = (ws) => {
     const nick = faker.internet.userName();
-    this.sendServerMessage(nick, 'joined');
-    ws.on('message', message => this.sendUserMessage(nick, message));
-    ws.on('close', message => this.sendServerMessage(nick, 'left'));
+    this.sendMessage(nick, 'join');
+    ws.on('message', message => this.sendMessage(nick, 'message', message));
+    ws.on('close', message => this.sendMessage(nick, 'leave'));
   }
 }
 
