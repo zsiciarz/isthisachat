@@ -1,4 +1,7 @@
-.PHONY: install serve
+.PHONY: install serve watch
+
+WEBPACK = ./node_modules/.bin/webpack
+WEBPACK_ARGS = --colors --progress
 
 SRC = $(wildcard src/*.js)
 LIB = $(SRC:src/%.js=build/%.js)
@@ -6,7 +9,7 @@ LIB = $(SRC:src/%.js=build/%.js)
 build: $(LIB)
 build/%.js: src/%.js
 	mkdir -p $(@D)
-	./node_modules/.bin/webpack --colors --progress
+	$(WEBPACK) $(WEBPACK_ARGS)
 
 serve: install
 	./node_modules/.bin/nodemon \
@@ -16,7 +19,9 @@ serve: install
 		-- --stage 0 backend/main.js
 
 watch: install
-	./node_modules/.bin/webpack --colors --progress --watch
+	$(WEBPACK) $(WEBPACK_ARGS) --watch
 
-install:
-	npm install
+install: node_modules
+
+node_modules: package.json
+	@npm install
