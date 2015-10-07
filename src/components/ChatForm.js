@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 export class ChatForm extends React.Component {
     static propTypes = {

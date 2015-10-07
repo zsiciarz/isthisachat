@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 export class ChatUserList extends React.Component {
     render () {

@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import {List, OrderedSet} from 'immutable';
 import {ChatMessage} from './ChatMessage.js';
 import {ChatUserList} from './ChatUserList.js';
