@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 
 export class ChatMessage extends React.Component {
     static propTypes = {
@@ -6,7 +7,7 @@ export class ChatMessage extends React.Component {
     }
 
     componentDidUpdate() {
-        React.findDOMNode(this).scrollIntoView(true);
+        ReactDom.findDOMNode(this).scrollIntoView(true);
     }
 
     render() {

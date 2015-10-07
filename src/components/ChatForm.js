@@ -10,7 +10,7 @@ export class ChatForm extends React.Component {
     handleSubmit = (e) => {
         this.props.onSend(this.state.text);
         this.setState({text: ''});
-        let input = React.findDOMNode(this.refs.message);
+        let input = this.refs.message;
         input.focus();
         e.preventDefault();
     }
