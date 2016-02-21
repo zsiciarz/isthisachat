@@ -16,7 +16,7 @@ serve: install
 		--exec ./node_modules/.bin/babel-node \
 		--watch backend \
 		--delay 100ms \
-		-- --stage 0 backend/main.js
+		-- --presets es2015,stage-0 backend/main.js
 
 watch: install
 	$(WEBPACK) $(WEBPACK_ARGS) --watch
