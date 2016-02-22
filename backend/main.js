@@ -16,8 +16,8 @@ class ChatServer {
   sendMessage = (nick, event, data) => {
     const payload = JSON.stringify({
       id: uuid.v4(),
-      nick: nick,
-      event: event,
+      nick,
+      event,
       message: data
     });
     this.wss.clients.forEach(client => client.send(payload));
