@@ -9,7 +9,7 @@ connect().use(serveStatic(path.join(__dirname, '../'))).listen(8080);
 
 class ChatServer {
   constructor(port) {
-    this.wss = new WebSocketServer({port: port});
+    this.wss = new WebSocketServer({port});
     this.wss.on('connection', this.handleConnection);
   }
 
