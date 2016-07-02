@@ -19,28 +19,32 @@ export class ChatRoom extends React.Component {
 
     handleIncomingMessage = (e) => {
         let message = JSON.parse(e.data);
-        if (message.event == 'nicks') {
+        switch (message.event) {
+        case 'nicks':
             const nicks = new OrderedSet(JSON.parse(message.message));
             this.setState({
                 nicks,
                 messages: this.state.messages
             });
-        } else if (message.event == 'join') {
+            break;
+        case 'join':
             this.setState({
                 messages: this.state.messages.push(message),
                 nicks: this.state.nicks.add(message.nick)
             });
-        } else if (message.event == 'leave') {
+            break;
+        case 'leave':
             this.setState({
                 messages: this.state.messages.push(message),
                 nicks: this.state.nicks.remove(message.nick)
             });
-        }
-        else {
+            break;
+        default:
             this.setState({
                 messages: this.state.messages.push(message),
                 nicks: this.state.nicks
             });
+            break;
         }
     }
 
