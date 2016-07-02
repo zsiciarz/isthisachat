@@ -24,7 +24,6 @@ export class ChatRoom extends React.Component {
             const nicks = new OrderedSet(JSON.parse(message.message));
             this.setState({
                 nicks,
-                messages: this.state.messages
             });
             break;
         case 'join':
@@ -42,7 +41,6 @@ export class ChatRoom extends React.Component {
         default:
             this.setState({
                 messages: this.state.messages.push(message),
-                nicks: this.state.nicks
             });
             break;
         }
